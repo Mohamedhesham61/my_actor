@@ -25,6 +25,14 @@ class ActorsListLoaded extends ActorsListState {
     this.isLoadingMore = false,
   });
 
+  @override
+  List<Object?> get props => [
+    actorsList,
+    currentPage,
+    totalPages,
+    isLoadingMore,
+  ];
+
   ActorsListLoaded copyWith({
     List<Results>? actorsList,
     int? currentPage,
@@ -39,10 +47,6 @@ class ActorsListLoaded extends ActorsListState {
     );
   }
 }
-
-// @override
-// List<Object?> get props => [actorsList, currentPage, totalPages];
-// }
 
 class ActorsListError extends ActorsListState {
   final String message;

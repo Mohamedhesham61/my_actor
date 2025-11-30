@@ -3,10 +3,13 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_actors/core/network/api_constants.dart';
+import 'package:flutter/rendering.dart';
 
+import '../../../../core/widgets/custom_appBar.dart';
 import '../blocs/actor_list_bloc.dart';
 import '../blocs/actor_list_event.dart';
 import '../blocs/actor_list_state.dart';
+import '../widgets/actor_list_shimmer.dart';
 
 class ActorListScreen extends StatefulWidget {
   const ActorListScreen({super.key});
@@ -25,12 +28,14 @@ class _ActorListScreenState extends State<ActorListScreen> {
       final bloc = context.read<ActorsListBloc>();
       final state = bloc.state;
 
+      if (scrollController.position.userScrollDirection == ScrollDirection.reverse) {
       if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 200 &&
           state is ActorsListLoaded &&
           !state.isLoadingMore &&
           state.currentPage < state.totalPages) {
         bloc.add(LoadMoreActors());
       }
+    }
     });
   }
 
@@ -44,19 +49,11 @@ class _ActorListScreenState extends State<ActorListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff121623),
-      appBar: AppBar(
-        backgroundColor: Color(0xff121623),
-        title: Text(
-          'Popular',
-          style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-      ),
+      appBar: CustomAppBar(title: 'Popular'),
       body: BlocBuilder<ActorsListBloc, ActorsListState>(
         builder: (context, state) {
           if (state is ActorsListLoading) {
-            // أول تحميل للقائمة
-            return Center(child: CircularProgressIndicator(color: Colors.orange));
+            return ActorListShimmer();
           }
 
           if (state is ActorsListError) {
@@ -68,7 +65,7 @@ class _ActorListScreenState extends State<ActorListScreen> {
 
             return ListView.builder(
               controller: scrollController,
-              itemCount: actors.length + (state.isLoadingMore ? 1 : 0),
+              itemCount: actors.length + 1 ,
               itemBuilder: (context, index) {
                 if (index < actors.length) {
                   final actor = actors[index];

@@ -17,9 +17,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => ActorsListService(sl<DioClient>()));
 
   // Repository
-  sl.registerLazySingleton<ActorRepository>(
-        () => ActorsRepositoryImpl(sl<ActorsListService>()),
-  );
+  sl.registerLazySingleton<ActorRepository>(() => ActorsRepositoryImpl(sl<ActorsListService>()));
 
   // UseCase
   sl.registerLazySingleton(() => GetPopularActorsUseCase(sl<ActorRepository>()));

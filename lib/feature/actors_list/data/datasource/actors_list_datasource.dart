@@ -15,12 +15,10 @@ class ActorsListService {
         ApiConstants.actorsList,
         queryParameters: {'api_key': ApiConstants.apiKey, 'page': pageNumber},
       );
-
       /// parse the whole response
       return ActorsListModel.fromJson(response.data);
 
     } catch (e) {
-      log('errorr===> $e');
       throw Exception('Failed to fetch actors: $e');
     }
   }
