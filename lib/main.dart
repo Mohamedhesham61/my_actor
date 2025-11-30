@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_actors/feature/actors_list/presentation/screens/actor_list_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/di/dependency_injection.dart';
+import 'core/routing/app_router.dart';
 import 'core/themes/theme_manager.dart';
 import 'feature/actors_list/presentation/blocs/actor_list_bloc.dart';
 import 'feature/actors_list/presentation/blocs/actor_list_event.dart';
@@ -27,10 +28,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: appThemes(),
-      home: const ActorListScreen(),
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: appThemes(),
+        initialRoute: '/splashScreen',
+        onGenerateRoute: AppRouter.generateRoute,
+      ),
     );
   }
 }
