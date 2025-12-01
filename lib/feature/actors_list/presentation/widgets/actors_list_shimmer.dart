@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
+part of 'actors_list_widgets_imports.dart';
 
 class ActorListShimmer extends StatelessWidget {
   const ActorListShimmer({super.key});
@@ -19,9 +18,7 @@ class ActorListShimmer extends StatelessWidget {
             highlightColor: Colors.grey.shade100,
             child: Row(
               children: [
-                CircleAvatar(
-                    backgroundColor: Color(0xffFAFAFA),
-                    radius: 34),
+                CircleAvatar(backgroundColor: Color(0xffFAFAFA), radius: 34),
                 SizedBox(width: 20),
                 Expanded(
                   child: Column(
@@ -30,19 +27,13 @@ class ActorListShimmer extends StatelessWidget {
                       Container(
                         height: 10,
                         width: 150,
-                        decoration: BoxDecoration(
-                          color: Color(0xffFAFAFA),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
+                        decoration: BoxDecoration(color: Color(0xffFAFAFA), borderRadius: BorderRadius.circular(8)),
                       ),
                       SizedBox(height: 8),
                       Container(
                         height: 10,
                         width: 80,
-                        decoration: BoxDecoration(
-                          color: Color(0xffFAFAFA),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
+                        decoration: BoxDecoration(color: Color(0xffFAFAFA), borderRadius: BorderRadius.circular(8)),
                       ),
                     ],
                   ),
@@ -52,8 +43,6 @@ class ActorListShimmer extends StatelessWidget {
           ),
         );
       },
-
     );
-
   }
 }

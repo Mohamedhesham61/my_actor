@@ -1,14 +1,26 @@
 import 'package:flutter/material.dart';
 
-class SplashScreen extends StatelessWidget {
+import 'core/routing/routes.dart';
+
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, "/actorListScreen");
-    });
+  State<SplashScreen> createState() => _SplashScreenState();
+}
 
+class _SplashScreenState extends State<SplashScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 2), () {
+      if (!mounted) return;
+      Navigator.pushReplacementNamed(context, Routes.actorListScreen);
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Column(

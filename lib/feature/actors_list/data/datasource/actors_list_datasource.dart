@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import '../../../../core/network/api_constants.dart';
 import '../../../../core/network/dio_client.dart';
 import '../models/actors_list_model.dart';

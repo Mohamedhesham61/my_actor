@@ -1,23 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+part of 'actors_list_imports.dart';
 
-import '../../../../core/widgets/custom_appBar.dart';
-import '../blocs/actor_list_bloc.dart';
-import '../blocs/actor_list_event.dart';
-import '../blocs/actor_list_state.dart';
-import '../widgets/actor_list_shimmer.dart';
-import '../widgets/build_Actor_item.dart';
-
-class ActorListScreen extends StatefulWidget {
-  const ActorListScreen({super.key});
+class ActorsListScreen extends StatefulWidget {
+  const ActorsListScreen({super.key});
 
   @override
-  State<ActorListScreen> createState() => _ActorListScreenState();
+  State<ActorsListScreen> createState() => _ActorsListScreenState();
 }
 
-class _ActorListScreenState extends State<ActorListScreen> {
+class _ActorsListScreenState extends State<ActorsListScreen> {
   final scrollController = ScrollController();
 
   @override
@@ -50,8 +40,13 @@ class _ActorListScreenState extends State<ActorListScreen> {
       appBar: CustomAppBar(title: 'Popular', backButton: false),
       body: BlocBuilder<ActorsListBloc, ActorsListState>(
         builder: (context, state) {
-          state is ActorsListLoading ? ActorListShimmer() : null;
-          state is ActorsListError ? Center(child: Text('ERROR')) : null;
+          if (state is ActorsListLoading) {
+            return ActorListShimmer();
+          }
+
+          if (state is ActorsListError) {
+            return const Center(child: Text('ERROR'));
+          }
           if (state is ActorsListLoaded) {
             final actors = state.actorsList;
             return ListView.builder(
@@ -60,7 +55,7 @@ class _ActorListScreenState extends State<ActorListScreen> {
               itemBuilder: (context, index) {
                 if (index < actors.length) {
                   final actor = actors[index];
-                  return BuildActorItem(actor: actor);
+                  return BuildActorsItem(actor: actor, actorId: actor.id ?? 0);
                 } else {
                   return Padding(
                     padding: EdgeInsets.all(12.w),
@@ -70,7 +65,6 @@ class _ActorListScreenState extends State<ActorListScreen> {
               },
             );
           }
-
           return SizedBox(); // fallback
         },
       ),

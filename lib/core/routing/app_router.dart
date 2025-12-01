@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:my_actors/core/routing/routes.dart';
 
-import '../../feature/actors_list/presentation/screens/actor_list_screen.dart';
+import '../../feature/actor_details/presentation/screens/actor_details_imports.dart';
+import '../../feature/actors_list/presentation/screens/actors_list_imports.dart';
 import '../../splash_screen.dart';
 
 class AppRouter {
   AppRouter._();
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    //this arguments to be passed in any screen like this ( arguments as ClassName )
-    final arguments = settings.arguments;
-
     switch (settings.name) {
       case Routes.splashScreen:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case Routes.actorListScreen:
-        return MaterialPageRoute(builder: (_) => const ActorListScreen());
-      // case Routes.actorDetailsScreen:
-      //   return MaterialPageRoute(
-      //     builder: (_) => const ActorDetailsScreen(),
-      //   );
+        return MaterialPageRoute(builder: (_) => const ActorsListScreen());
+      case Routes.actorDetailsScreen:
+        final args = settings.arguments as Map<String, dynamic>;
+        final actorId = args['actorId'] as int;
+        final actorName = args['actorName'] as String;
+        return MaterialPageRoute(
+          builder: (_) => ActorDetailsScreen(actorId: actorId, actorName: actorName),
+        );
       // case Routes.actorImageScreen:
       //   return MaterialPageRoute(
       //     builder: (_) => const ActorImageScreen(),

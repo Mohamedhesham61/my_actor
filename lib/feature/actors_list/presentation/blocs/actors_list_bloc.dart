@@ -1,9 +1,8 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/models/actors_list_model.dart';
 import '../../domain/usecases/get_actors_list_usecase.dart';
-import 'actor_list_event.dart';
-import 'actor_list_state.dart';
+import 'actors_list_event.dart';
+import 'actors_list_state.dart';
 
 class ActorsListBloc extends Bloc<ActorsListEvent, ActorsListState> {
   final GetPopularActorsUseCase getPopularActors;

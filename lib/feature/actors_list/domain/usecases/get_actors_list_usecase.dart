@@ -1,7 +1,5 @@
-import 'dart:developer';
-
 import '../../data/models/actors_list_model.dart';
-import '../repository/actors_list_repoo.dart';
+import '../repository/actors_list_repo.dart';
 
 class GetPopularActorsUseCase {
   final ActorRepository repository;
@@ -9,7 +7,6 @@ class GetPopularActorsUseCase {
   GetPopularActorsUseCase(this.repository);
 
   Future<ActorsListModel> call({int? pageNumber}) async {
-    log('usecase pagenumber====> $pageNumber');
     return await repository.getPopularActors(pageNumber: pageNumber);
   }
 }

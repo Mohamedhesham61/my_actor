@@ -4,8 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/di/dependency_injection.dart';
 import 'core/routing/app_router.dart';
 import 'core/themes/theme_manager.dart';
-import 'feature/actors_list/presentation/blocs/actor_list_bloc.dart';
-import 'feature/actors_list/presentation/blocs/actor_list_event.dart';
+import 'feature/actor_details/presentation/controllers/actor_details_bloc.dart';
+import 'feature/actor_details/presentation/controllers/actor_details_event.dart';
+import 'feature/actor_details/presentation/controllers/actor_images_bloc.dart';
+import 'feature/actors_list/presentation/blocs/actors_list_bloc.dart';
+import 'feature/actors_list/presentation/blocs/actors_list_event.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +21,12 @@ void main() async {
           providers: [
             BlocProvider(
               create: (context) => sl<ActorsListBloc>()..add(FetchActorsList()),
+            ),
+            BlocProvider(
+              create: (context) => sl<ActorDetailsBloc>(),
+            ),
+            BlocProvider(
+              create: (context) => sl<ActorImagesBloc>(),
             ),
           ],
       child: const MyApp()));
