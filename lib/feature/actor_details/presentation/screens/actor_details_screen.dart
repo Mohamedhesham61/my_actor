@@ -38,7 +38,6 @@ class _ActorDetailsScreenState extends State<ActorDetailsScreen> {
           }
           if (state is ActorDetailsLoaded) {
             final actorDetails = state.actorDetails;
-
             return Padding(
               padding: const EdgeInsets.all(10),
               child: SingleChildScrollView(

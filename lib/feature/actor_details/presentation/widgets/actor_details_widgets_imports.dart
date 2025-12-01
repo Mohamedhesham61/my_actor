@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../../../core/network/api_constants.dart';
+import '../../../../core/routing/routes.dart';
 import '../controllers/actor_images_bloc.dart';
 import '../controllers/actor_images_state.dart';
 
