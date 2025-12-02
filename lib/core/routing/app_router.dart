@@ -4,6 +4,7 @@ import 'package:my_actors/core/routing/routes.dart';
 import '../../feature/actor_details/presentation/screens/actor_details_imports.dart';
 import '../../feature/actor_image/presentation/screens/actor_image_imports.dart';
 import '../../feature/actors_list/presentation/screens/actors_list_imports.dart';
+import '../../feature/no_internet/presenatation/screens/no_internet_imports.dart';
 import '../../splash_screen.dart';
 
 class AppRouter {
@@ -13,6 +14,8 @@ class AppRouter {
     switch (settings.name) {
       case Routes.splashScreen:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
+      case Routes.noInternetScreen:
+        return MaterialPageRoute(builder: (_) => const NoInternetScreen());
       case Routes.actorListScreen:
         return MaterialPageRoute(builder: (_) => const ActorsListScreen());
       case Routes.actorDetailsScreen:

@@ -14,12 +14,26 @@ class BuildWholeImage extends StatelessWidget {
         child: Image.network(
           ApiConstants.imageUrl(imageUrl),
           fit: BoxFit.contain,
+          // Prevent white flash while loading
           loadingBuilder: (context, child, progress) {
             if (progress == null) return child;
-            return const Center(child: CircularProgressIndicator(color: Colors.orange));
+            return Container(
+              color: Colors.black,   // IMPORTANT: stops the white glow
+              alignment: Alignment.center,
+              child: const CircularProgressIndicator(color: Colors.orange),
+            );
           },
+
+          // Prevent white flash when error occurs
           errorBuilder: (context, error, stackTrace) {
-            return const Center(child: Text('Failed to load image', style: TextStyle(color: Colors.white)));
+            return Container(
+              color: Colors.black,   // IMPORTANT: stops the white glow
+              alignment: Alignment.center,
+              child: const Text(
+                'Failed to load image',
+                style: TextStyle(color: Colors.white),
+              ),
+            );
           },
         ),
       ),

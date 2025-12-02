@@ -14,6 +14,7 @@ import '../../feature/actors_list/data/repository/actors_list_repo_impl.dart';
 import '../../feature/actors_list/domain/repository/actors_list_repo.dart';
 import '../../feature/actors_list/domain/usecases/get_actors_list_usecase.dart';
 import '../../feature/actors_list/presentation/blocs/actors_list_bloc.dart';
+import '../../feature/no_internet/presenatation/bloc/no_internet_bloc.dart';
 import '../network/dio_client.dart';
 import '../network/api_constants.dart';
 
@@ -27,6 +28,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => ActorsListService(sl<DioClient>()));
   sl.registerLazySingleton(() => ActorDetailsService(sl<DioClient>()));
   sl.registerLazySingleton(() => ActorImagesService(sl<DioClient>()));
+  sl.registerLazySingleton<ConnectivityBloc>(() => ConnectivityBloc());
 
   // Repository
   sl.registerLazySingleton<ActorRepository>(() => ActorsRepositoryImpl(sl<ActorsListService>()));

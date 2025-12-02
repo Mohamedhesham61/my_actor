@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(Duration(seconds: 2), () {
       if (!mounted) return;
-      Navigator.pushReplacementNamed(context, Routes.actorListScreen);
+      Navigator.pushNamedAndRemoveUntil(context, Routes.actorListScreen, (route) => false);
     });
   }
   @override
@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
               width: 100,
               height: 100,
             ),
-            Text('My Actors',style: TextStyle(color: Colors.white)),
+            Text('My Actors',style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
           ],
         ),
       ),

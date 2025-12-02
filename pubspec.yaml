@@ -45,6 +45,12 @@ dependencies:
   permission_handler: ^12.0.1
   photo_manager: ^3.0.0
   fluttertoast: ^9.0.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  build_runner: ^2.10.4
+  connectivity_plus: ^7.0.0
+  lottie: ^3.3.2
+  
 
 
 
@@ -74,6 +80,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/lottie/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

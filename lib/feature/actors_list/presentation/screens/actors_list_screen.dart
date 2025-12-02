@@ -9,6 +9,7 @@ class ActorsListScreen extends StatefulWidget {
 
 class _ActorsListScreenState extends State<ActorsListScreen> {
   final scrollController = ScrollController();
+  late StreamSubscription connectivitySub;
 
   @override
   void initState() {
@@ -26,47 +27,57 @@ class _ActorsListScreenState extends State<ActorsListScreen> {
         }
       }
     });
+    connectivitySub = Connectivity().onConnectivityChanged.listen((result) {
+      if (!mounted) return;
+      if (result.isNotEmpty && result.first != ConnectivityResult.none) {
+        context.read<ActorsListBloc>().add(FetchActorsList());
+      }
+    });
   }
 
   @override
   void dispose() {
     scrollController.dispose();
+    connectivitySub.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(title: 'Popular', backButton: false),
-      body: BlocBuilder<ActorsListBloc, ActorsListState>(
-        builder: (context, state) {
-          if (state is ActorsListLoading) {
-            return ActorListShimmer();
-          }
+    return WillPopScope(
+      onWillPop: BackPressHandler.instance.onWillPop,
+      child: Scaffold(
+        appBar: CustomAppBar(title: 'Popular', backButton: false),
+        body: BlocBuilder<ActorsListBloc, ActorsListState>(
+          builder: (context, state) {
+            if (state is ActorsListLoading) {
+              return ActorListShimmer();
+            }
 
-          if (state is ActorsListError) {
-            return const Center(child: Text('ERROR'));
-          }
-          if (state is ActorsListLoaded) {
-            final actors = state.actorsList;
-            return ListView.builder(
-              controller: scrollController,
-              itemCount: actors.length + 1,
-              itemBuilder: (context, index) {
-                if (index < actors.length) {
-                  final actor = actors[index];
-                  return BuildActorsItem(actor: actor, actorId: actor.id ?? 0);
-                } else {
-                  return Padding(
-                    padding: EdgeInsets.all(12.w),
-                    child: Center(child: CircularProgressIndicator(color: Colors.orange)),
-                  );
-                }
-              },
-            );
-          }
-          return SizedBox(); // fallback
-        },
+            if (state is ActorsListError) {
+              return const Center(child: Text('ERROR'));
+            }
+            if (state is ActorsListLoaded) {
+              final actors = state.actorsList;
+              return ListView.builder(
+                controller: scrollController,
+                itemCount: actors.length + 1,
+                itemBuilder: (context, index) {
+                  if (index < actors.length) {
+                    final actor = actors[index];
+                    return BuildActorsItem(actor: actor, actorId: actor.id ?? 0);
+                  } else {
+                    return Padding(
+                      padding: EdgeInsets.all(12.w),
+                      child: Center(child: CircularProgressIndicator(color: Colors.orange)),
+                    );
+                  }
+                },
+              );
+            }
+            return SizedBox(); // fallback
+          },
+        ),
       ),
     );
   }

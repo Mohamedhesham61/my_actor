@@ -1,7 +1,6 @@
 part of 'actor_details_widgets_imports.dart';
 
 class BuildActorGallery extends StatelessWidget {
-
   const BuildActorGallery({super.key});
 
   @override
@@ -45,17 +44,26 @@ class BuildActorGallery extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final imageUrl = actorImages.profiles?[index].filePath ?? '';
                         return InkWell(
-                          onTap: () => Navigator.pushNamed(
-                            context,
-                            Routes.actorImageScreen,
-                            arguments: {'imageUrl': imageUrl},
-                          ),
+                          onTap: () =>
+                              Navigator.pushNamed(context, Routes.actorImageScreen, arguments: {'imageUrl': imageUrl}),
                           child: Container(
                             padding: const EdgeInsets.all(3),
                             decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(17),
-                              child: Image.network(ApiConstants.imageUrl(imageUrl), fit: BoxFit.cover),
+                              child: Image.network(
+                                ApiConstants.imageUrl(imageUrl),
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return const Icon(Icons.person, size: 30, color: Colors.grey);
+                                },
+                                loadingBuilder: (context, child, loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return const Center(
+                                    child: CircularProgressIndicator(strokeWidth: 2, color: Colors.orange),
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         );

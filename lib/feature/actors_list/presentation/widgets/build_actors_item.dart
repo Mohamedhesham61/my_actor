@@ -18,7 +18,32 @@ class BuildActorsItem extends StatelessWidget {
         child: Row(
           children: [
             // -------------------------------- IMAGE -------------------------------- \\
-            CircleAvatar(radius: 31.r, backgroundImage: NetworkImage(ApiConstants.imageUrl(actor.profilePath ?? ''))),
+            CircleAvatar(
+              radius: 31.r,
+              backgroundColor: Colors.grey.shade200,
+              child: ClipOval(
+                child: Image.network(
+                  ApiConstants.imageUrl(actor.profilePath ?? ''),
+                  fit: BoxFit.cover,
+                  width: 62.r,
+                  height: 62.r,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Icon(
+                      Icons.person,
+                      size: 30,
+                      color: Colors.grey,
+                    );
+                  },
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return const Center(
+                      child: CircularProgressIndicator(strokeWidth: 2, color: Colors.orange),
+                    );
+                  },
+                ),
+              ),
+            ),
+
             SizedBox(width: 17.w),
 
             Expanded(
