@@ -50,6 +50,11 @@ dependencies:
   build_runner: ^2.10.4
   connectivity_plus: ^7.0.0
   lottie: ^3.3.2
+  flutter_launcher_icons: ^0.14.4
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/splash.png"
   
 
 
